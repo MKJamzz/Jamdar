@@ -1,0 +1,7 @@
+yt-dlp
+PyQt6
+spotipy
+pygame
+psutil
+mutagen
+requests
