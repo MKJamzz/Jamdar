@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Jamdar — UI Redesign</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,600;12..96,700;12..96,800&family=Hanken+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<link rel="stylesheet" href="assets/jamdar.css" />
+</head>
+<body>
+<div class="page">
+
+  <!-- ============ INTRO ============ -->
+  <header style="margin-bottom:56px;">
+    <div class="kicker">Jamdar · Desktop · UI Redesign</div>
+    <h1 style="font-size:54px; font-weight:800; line-height:1.02; margin-top:16px; max-width:18ch;">A music finder that feels like a <span style="color:var(--coral-deep);">player</span>, not a downloader.</h1>
+    <p style="font-size:16.5px; color:var(--ink-2); line-height:1.6; max-width:64ch; margin-top:18px;">
+      The redesign trades the cramped dark utility for a bright, soft, premium surface inspired by
+      <b style="color:var(--ink);">slush.app</b> — warm paper, generously rounded cards, and a single coral accent doing the heavy lifting.
+      Search is the hero up top, results breathe in the center, a proper dark <b style="color:var(--ink);">Now Playing</b> dock
+      anchors the bottom, and the download queue slides in from the right only when you need it. Platform colors
+      (YouTube&nbsp;red, SoundCloud&nbsp;orange) survive as small accent moments — a thumbnail glow, a badge, a source label —
+      never as visual clutter.
+    </p>
+    <div class="decisions">
+      <span class="tag"><span class="d" style="background:var(--coral);"></span> Coral #FF82A8 — single accent, ink-on-coral CTAs</span>
+      <span class="tag"><span class="d" style="background:var(--dock);"></span> Indigo-ink dock anchors the player</span>
+      <span class="tag"><span class="d" style="background:var(--paper); box-shadow:inset 0 0 0 1px var(--line-2);"></span> Warm paper surfaces, soft 15–32px radii</span>
+      <span class="tag"><span class="d" style="background:var(--yt);"></span><span class="d" style="background:var(--sc); margin-left:-4px;"></span> Platform color = accent only</span>
+    </div>
+  </header>
+
+  <!-- ============ 1 · MAIN WINDOW ============ -->
+  <section>
+    <div class="section-head">
+      <div class="n">01 — The main window</div>
+      <div class="section-title">Main window, queue docked</div>
+      <p class="section-sub">Search header · results feed · persistent Now Playing dock · slide-out download queue shown open. 1280×760.</p>
+    </div>
+
+    <div class="frame">
+      <div class="flabel"><span class="dot"></span> <b>Jamdar.app</b> — default state, one track previewing, two downloads active</div>
+
+      <div class="window">
+        <!-- titlebar -->
+        <div class="titlebar">
+          <div class="traffic"><i></i><i></i><i></i></div>
+          <div class="brand"><span class="disc"></span><span class="word">Jamdar</span></div>
+          <div class="spacer"></div>
+          <div class="uchip drive" title="Output drive">
+            <span class="dotok"></span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="14" width="18" height="6" rx="2"/><path d="M6 14V6a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v8"/><circle cx="7.5" cy="17" r="1" fill="currentColor" stroke="none"/></svg>
+            <span class="path">SANSA CLIP /Music</span>
+          </div>
+          <div class="seg" title="Download format">
+            <button class="on">MP3</button><button>FLAC</button>
+          </div>
+          <div class="iconbtn" title="Downloads">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 3v12m0 0 4-4m-4 4-4-4"/><path d="M5 21h14"/></svg>
+            <span class="badge">2</span>
+          </div>
+          <div class="iconbtn" title="Settings">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.6 1.6 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.6 1.6 0 0 0-2.7 1.1V21a2 2 0 0 1-4 0v-.1A1.6 1.6 0 0 0 7 19.4a1.6 1.6 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1A1.6 1.6 0 0 0 2.6 14H2.5a2 2 0 0 1 0-4h.1A1.6 1.6 0 0 0 4.6 7a1.6 1.6 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1A1.6 1.6 0 0 0 10 2.6h0A1.6 1.6 0 0 0 11 1.1V1a2 2 0 0 1 4 0v.1a1.6 1.6 0 0 0 2.7 1.1 1.6 1.6 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.6 1.6 0 0 0-.3 1.8V7a1.6 1.6 0 0 0 1.5 1H22a2 2 0 0 1 0 4h-.1a1.6 1.6 0 0 0-1.5 1Z"/></svg>
+          </div>
+        </div>
+
+        <!-- search header -->
+        <div class="header">
+          <div class="searchbar">
+            <span class="mag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg></span>
+            <input value="bonobo - kerala" />
+            <div class="src-seg">
+              <button class="on">All sources</button>
+              <button><span class="pdot" style="background:var(--yt);"></span> YouTube</button>
+              <button><span class="pdot" style="background:var(--sc);"></span> SoundCloud</button>
+            </div>
+            <button class="btn-primary">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+              Search
+            </button>
+          </div>
+          <div class="subrow">
+            <div class="import">
+              <span class="sp"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20Zm4.6 14.4a.62.62 0 0 1-.86.21c-2.35-1.43-5.3-1.76-8.79-.96a.63.63 0 1 1-.28-1.22c3.8-.87 7.07-.49 9.71 1.12.3.18.39.57.22.85Zm1.23-2.74a.78.78 0 0 1-1.07.26c-2.69-1.65-6.79-2.13-9.97-1.16a.78.78 0 1 1-.45-1.49c3.63-1.1 8.15-.57 11.23 1.32.36.22.48.7.26 1.07Zm.11-2.85C14.84 8.96 9.3 8.79 6.2 9.73a.94.94 0 1 1-.54-1.8c3.56-1.08 9.68-.87 13.5 1.4a.94.94 0 0 1-.96 1.61Z"/></svg></span>
+              <input placeholder="Paste a Spotify playlist link to bulk-download…" />
+              <button class="btn-spotify">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14m0 0 5-5m-5 5-5-5"/></svg>
+                Import playlist
+              </button>
+            </div>
+            <span class="hint"><span class="kbd">⏎</span> to search · 30s previews</span>
+          </div>
+        </div>
+
+        <!-- body -->
+        <div class="body">
+          <div class="results">
+            <div class="results-head">
+              <h3>Results</h3>
+              <span class="count">24 tracks</span>
+              <span class="spacer"></span>
+              <button class="sortpill">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 6h18M6 12h12M10 18h4"/></svg>
+                Relevance
+              </button>
+            </div>
+
+            <div class="cardlist">
+
+              <!-- playing card -->
+              <div class="rcard playing">
+                <div class="cover"><div class="art a4"></div><div class="grain"></div>
+                  <div class="pbadge" style="background:rgba(255,59,48,.92);"><span class="pd"></span>YT</div>
+                </div>
+                <div class="meta">
+                  <div class="title">KÉ²ra (Kerala) — Bonobo</div>
+                  <div class="sub">
+                    <span class="srclabel" style="color:var(--ink-2);"><span class="eq"><i></i><i></i><i></i><i></i></span> Now previewing</span>
+                    <span class="sep"></span><span>Ninja Tune</span><span class="sep"></span><span class="dur">3:42</span>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn-ghost" style="border-color:var(--coral); color:var(--coral-deep);">
+                    <svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1"/><rect x="14" y="5" width="4" height="14" rx="1"/></svg>
+                    Pause
+                  </button>
+                  <button class="btn-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+                  <button class="linkbtn" title="Open in browser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></button>
+                </div>
+              </div>
+
+              <!-- card 2 -->
+              <div class="rcard">
+                <div class="cover"><div class="art a3"></div><div class="grain"></div>
+                  <div class="pbadge" style="background:rgba(255,85,0,.92);"><span class="pd"></span>SC</div>
+                </div>
+                <div class="meta">
+                  <div class="title">Kerala (Extended Mix)</div>
+                  <div class="sub">
+                    <span class="srclabel" style="color:var(--sc);"><span class="pd" style="background:var(--sc);"></span> SoundCloud</span>
+                    <span class="sep"></span><span>lush.fm</span><span class="sep"></span><span class="dur">6:18</span>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Preview</button>
+                  <button class="btn-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+                  <button class="linkbtn" title="Open in browser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></button>
+                </div>
+              </div>
+
+              <!-- card 3 -->
+              <div class="rcard">
+                <div class="cover"><div class="art a7"></div><div class="grain"></div>
+                  <div class="pbadge" style="background:rgba(255,59,48,.92);"><span class="pd"></span>YT</div>
+                </div>
+                <div class="meta">
+                  <div class="title">Bonobo — Kerala (Official Video)</div>
+                  <div class="sub">
+                    <span class="srclabel" style="color:var(--yt);"><span class="pd" style="background:var(--yt);"></span> YouTube</span>
+                    <span class="sep"></span><span>Bonobo</span><span class="sep"></span><span class="dur">3:45</span>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Preview</button>
+                  <button class="btn-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+                  <button class="linkbtn" title="Open in browser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></button>
+                </div>
+              </div>
+
+              <!-- card 4 -->
+              <div class="rcard">
+                <div class="cover"><div class="art a5"></div><div class="grain"></div>
+                  <div class="pbadge" style="background:rgba(255,85,0,.92);"><span class="pd"></span>SC</div>
+                </div>
+                <div class="meta">
+                  <div class="title">Kerala — Lapalux Rework</div>
+                  <div class="sub">
+                    <span class="srclabel" style="color:var(--sc);"><span class="pd" style="background:var(--sc);"></span> SoundCloud</span>
+                    <span class="sep"></span><span>Lapalux</span><span class="sep"></span><span class="dur">4:02</span>
+                  </div>
+                </div>
+                <div class="actions">
+                  <button class="btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Preview</button>
+                  <button class="btn-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+                  <button class="linkbtn" title="Open in browser"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M14 4h6v6"/><path d="M20 4 10 14"/><path d="M19 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V6a1 1 0 0 1 1-1h5"/></svg></button>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+          <!-- queue panel -->
+          <aside class="queue">
+            <div class="queue-head">
+              <h3>Downloads</h3>
+              <span class="qbadge">2 active</span>
+              <span class="spacer"></span>
+              <button class="mini" title="Dock to edge"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="m9 6 6 6-6 6"/></svg></button>
+            </div>
+            <div class="qlist">
+
+              <div class="qrow">
+                <div class="top">
+                  <div class="qcover"><div class="art a4"></div></div>
+                  <div class="qmeta">
+                    <div class="qtitle">KÉ²ra (Kerala) — Bonobo</div>
+                    <div class="qsub"><span class="fmt">MP3 · 320</span></div>
+                  </div>
+                  <button class="qcancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="bar"><i style="width:64%;"></i></div>
+                <div class="status"><span class="s">Downloading…</span><span class="pct">64%</span></div>
+              </div>
+
+              <div class="qrow">
+                <div class="top">
+                  <div class="qcover"><div class="art a7"></div></div>
+                  <div class="qmeta">
+                    <div class="qtitle">Bonobo — Kerala (Official)</div>
+                    <div class="qsub"><span class="fmt">MP3 · 320</span></div>
+                  </div>
+                  <button class="qcancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="bar"><i style="width:23%;"></i></div>
+                <div class="status"><span class="s">Downloading…</span><span class="pct">23%</span></div>
+              </div>
+
+              <div class="qrow done">
+                <div class="top">
+                  <div class="qcover"><div class="art a3"></div></div>
+                  <div class="qmeta">
+                    <div class="qtitle">Kiara — Bonobo (Live)</div>
+                    <div class="qsub"><span class="fmt">FLAC</span></div>
+                  </div>
+                  <button class="qcancel" title="Reveal in drive"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></button>
+                </div>
+                <div class="status" style="margin-top:4px;"><span class="s done"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><path d="m5 13 4 4L19 7"/></svg> Saved to drive</span><span class="pct" style="color:#1a8c47;">9.1 MB</span></div>
+              </div>
+
+              <div class="qrow fail">
+                <div class="top">
+                  <div class="qcover"><div class="art a5"></div></div>
+                  <div class="qmeta">
+                    <div class="qtitle">Kerala — Lapalux Rework</div>
+                    <div class="qsub"><span class="fmt">MP3 · 320</span></div>
+                  </div>
+                  <button class="qcancel"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 6l12 12M18 6 6 18"/></svg></button>
+                </div>
+                <div class="status" style="margin-top:4px;"><span class="s fail"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="9"/><path d="M12 7v6M12 16.5v.5"/></svg> Source unavailable</span><button class="retry"><svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M3 12a9 9 0 1 0 3-6.7L3 8"/><path d="M3 4v4h4"/></svg> Retry</button></div>
+              </div>
+
+            </div>
+          </aside>
+        </div>
+
+        <!-- now playing dock -->
+        <div class="dock">
+          <div class="npmeta">
+            <div class="npcover"><div class="art a4"></div></div>
+            <div style="min-width:0;">
+              <div class="nptitle">KÉ²ra (Kerala)</div>
+              <div class="npsub"><span class="pd" style="background:var(--yt);"></span> Bonobo · YouTube <span class="preview-tag">PREVIEW</span></div>
+            </div>
+          </div>
+
+          <div class="transport">
+            <button class="tbtn" title="Restart"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6h2v12H7zM20 6 10 12l10 6z"/></svg></button>
+            <button class="play" title="Pause"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>
+            <button class="tbtn" title="Stop"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+          </div>
+
+          <div class="scrub">
+            <span class="t cur">0:11</span>
+            <div class="wave" id="wave"></div>
+            <span class="t">0:30</span>
+          </div>
+
+          <div class="right">
+            <div class="vol">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M16 9a3 3 0 0 1 0 6"/></svg>
+              <div class="vbar"><i></i></div>
+            </div>
+            <button class="dock-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ============ 2 · COMPONENT NOTES ============ -->
+  <section>
+    <div class="section-head">
+      <div class="n">02 — Component notes</div>
+      <div class="section-title">Three components do most of the work</div>
+    </div>
+    <div class="notes-grid">
+      <div class="note">
+        <div class="ntag">Result card</div>
+        <h4>Rich, scannable rows</h4>
+        <ul>
+          <li><b>80px rounded cover</b> with a platform-tinted glow + corner badge — the constraint-required YT/SC mark, always visible.</li>
+          <li><b>Title in display type</b>, then a muted line: source label · uploader · mono duration.</li>
+          <li><b>Two clear actions</b> — outline <b>Preview</b>, coral <b>Download</b> — plus a quiet "open in browser" glyph.</li>
+          <li>The previewing card gets a <b>coral ring + live equalizer</b> so you never lose your place.</li>
+        </ul>
+      </div>
+      <div class="note">
+        <div class="ntag">Now Playing dock</div>
+        <h4>A real player, not a strip</h4>
+        <ul>
+          <li><b>Dark indigo-ink bar</b> spans the window base — premium weight, lets coral pop.</li>
+          <li><b>60px art + title + source dot</b> left; big <b>coral play</b> center between restart/stop.</li>
+          <li><b>Waveform scrubber</b> with mono time codes and a <b>PREVIEW</b> tag for the 30s clip.</li>
+          <li>Volume + a one-tap <b>Download this</b> on the right — preview to save in one move.</li>
+        </ul>
+      </div>
+      <div class="note">
+        <div class="ntag">Queue row</div>
+        <h4>Status at a glance</h4>
+        <ul>
+          <li><b>Cover + title + format chip</b> (MP3·320 / FLAC) in mono; cancel ✕ always reachable.</li>
+          <li><b>Coral progress bar + % always visible</b> while active — a hard requirement, honored.</li>
+          <li>State colors the whole row: <b>green "Saved to drive"</b>, <b>red "unavailable" with Retry</b>.</li>
+          <li>Lives in a <b>dockable slide-out</b>; the titlebar badge shows the active count when collapsed.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ============ 3 · VARIATIONS ============ -->
+  <section>
+    <div class="section-head">
+      <div class="n">03 — Variations to compare</div>
+      <div class="section-title">Card &amp; player alternates</div>
+      <p class="section-sub">Mix-and-match directions. A/B on the result card, then two Now Playing treatments — pick per your taste for density and color.</p>
+    </div>
+
+    <!-- card variations -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-bottom:36px;">
+      <div class="frame">
+        <div class="flabel"><span class="dot"></span> <b>Card A</b> — Standard row (used in the main window)</div>
+        <div style="background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); padding:18px; box-shadow:var(--sh-card);">
+          <div class="rcard">
+            <div class="cover"><div class="art a3"></div><div class="grain"></div><div class="pbadge" style="background:rgba(255,85,0,.92);"><span class="pd"></span>SC</div></div>
+            <div class="meta">
+              <div class="title">Kerala (Extended Mix)</div>
+              <div class="sub"><span class="srclabel" style="color:var(--sc);"><span class="pd" style="background:var(--sc);"></span> SoundCloud</span><span class="sep"></span><span>lush.fm</span><span class="sep"></span><span class="dur">6:18</span></div>
+            </div>
+            <div class="actions">
+              <button class="btn-ghost"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg> Preview</button>
+              <button class="btn-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame">
+        <div class="flabel"><span class="dot"></span> <b>Card B</b> — Cover-forward, hover actions reveal</div>
+        <div style="background:var(--paper); border:1px solid var(--line); border-radius:var(--r-lg); padding:18px; box-shadow:var(--sh-card);">
+          <!-- variant B styling inline -->
+          <div style="display:flex; gap:16px; background:var(--surface); border:1px solid var(--line); border-radius:var(--r-lg); padding:14px; box-shadow:var(--sh-card); position:relative; overflow:hidden;">
+            <div style="position:absolute; inset:0; background:linear-gradient(90deg, rgba(255,85,0,.10), transparent 42%);"></div>
+            <div class="cover" style="width:104px; height:104px; border-radius:var(--r);"><div class="art a2"></div><div class="grain"></div>
+              <div style="position:absolute; inset:0; display:grid; place-items:center;">
+                <span style="width:42px; height:42px; border-radius:50%; background:rgba(255,255,255,.92); display:grid; place-items:center; box-shadow:var(--sh-2);">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="var(--ink)"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+              </div>
+              <div class="pbadge" style="background:rgba(255,85,0,.92); left:7px; bottom:7px;"><span class="pd"></span>SC</div>
+            </div>
+            <div style="flex:1; min-width:0; position:relative; display:flex; flex-direction:column; justify-content:center;">
+              <div class="srclabel" style="color:var(--sc); margin-bottom:6px;"><span class="pd" style="background:var(--sc);"></span> SoundCloud · lush.fm</div>
+              <div class="title" style="font-size:19px;">Kerala (Extended Mix)</div>
+              <div style="display:flex; align-items:center; gap:12px; margin-top:12px;">
+                <div style="flex:1; height:26px; display:flex; align-items:flex-end; gap:2px;">
+                  <!-- mini waveform -->
+                  <span style="width:3px;height:30%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:60%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:90%;background:var(--coral);border-radius:2px;"></span><span style="width:3px;height:50%;background:var(--coral);border-radius:2px;"></span><span style="width:3px;height:75%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:40%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:85%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:55%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:35%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:70%;background:var(--line-2);border-radius:2px;"></span><span style="width:3px;height:45%;background:var(--line-2);border-radius:2px;"></span>
+                </div>
+                <span class="mono" style="font-size:12px; color:var(--ink-3);">6:18</span>
+                <button class="btn-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- player variations -->
+    <div style="display:grid; grid-template-columns:1fr; gap:28px;">
+      <div class="frame">
+        <div class="flabel"><span class="dot"></span> <b>Player A</b> — Dark dock (used in the main window)</div>
+        <div style="border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--sh-card);">
+          <div class="dock" style="border-radius:var(--r-xl);">
+            <div class="npmeta">
+              <div class="npcover"><div class="art a4"></div></div>
+              <div style="min-width:0;">
+                <div class="nptitle">KÉ²ra (Kerala)</div>
+                <div class="npsub"><span class="pd" style="background:var(--yt);"></span> Bonobo · YouTube <span class="preview-tag">PREVIEW</span></div>
+              </div>
+            </div>
+            <div class="transport">
+              <button class="tbtn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6h2v12H7zM20 6 10 12l10 6z"/></svg></button>
+              <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>
+              <button class="tbtn"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+            </div>
+            <div class="scrub">
+              <span class="t cur">0:11</span>
+              <div class="wave" data-wave></div>
+              <span class="t">0:30</span>
+            </div>
+            <div class="right">
+              <div class="vol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M16 9a3 3 0 0 1 0 6"/></svg><div class="vbar"><i></i></div></div>
+              <button class="dock-dl"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="frame">
+        <div class="flabel"><span class="dot"></span> <b>Player B</b> — Light glass dock, art-bloom background</div>
+        <div style="border-radius:var(--r-xl); overflow:hidden; box-shadow:var(--sh-card); position:relative; height:96px;
+                    background:linear-gradient(180deg,#fff,#FBF4F6);">
+          <div style="position:absolute; inset:0; background:
+                radial-gradient(420px 200px at 6% 50%, rgba(255,130,168,.35), transparent 70%),
+                radial-gradient(420px 200px at 30% 120%, rgba(124,92,255,.22), transparent 70%);"></div>
+          <div class="dock" style="height:100%; color:var(--ink); background:none; border:1px solid var(--line); border-radius:var(--r-xl);">
+            <div class="npmeta" style="width:286px;">
+              <div class="npcover" style="box-shadow:0 0 0 1px rgba(34,28,43,.08), var(--sh-2);"><div class="art a4"></div></div>
+              <div style="min-width:0;">
+                <div class="nptitle" style="color:var(--ink);">KÉ²ra (Kerala)</div>
+                <div class="npsub" style="color:var(--ink-2);"><span class="pd" style="background:var(--yt);"></span> Bonobo · YouTube
+                  <span class="preview-tag" style="background:var(--coral-soft); color:var(--coral-deep); border-color:var(--coral);">PREVIEW</span></div>
+              </div>
+            </div>
+            <div class="transport">
+              <button class="tbtn" style="color:var(--ink-3);"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M7 6h2v12H7zM20 6 10 12l10 6z"/></svg></button>
+              <button class="play"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="5" width="4" height="14" rx="1.2"/><rect x="14" y="5" width="4" height="14" rx="1.2"/></svg></button>
+              <button class="tbtn" style="color:var(--ink-3);"><svg viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg></button>
+            </div>
+            <div class="scrub">
+              <span class="t cur" style="color:var(--ink);">0:11</span>
+              <div class="wave" data-wave-light style="height:34px;"></div>
+              <span class="t" style="color:var(--ink-3);">0:30</span>
+            </div>
+            <div class="right">
+              <div class="vol" style="color:var(--ink-3);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M11 5 6 9H3v6h3l5 4z"/><path d="M16 9a3 3 0 0 1 0 6"/></svg><div class="vbar" style="background:var(--surface-3);"><i style="background:var(--ink-3);"></i></div></div>
+              <button class="dock-dl" style="background:var(--coral); border-color:transparent; color:var(--ink); box-shadow:0 4px 14px rgba(255,130,168,.4);"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 4v11m0 0 4-4m-4 4-4-4"/><path d="M5 20h14"/></svg> Download</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider" />
+
+  <!-- ============ 4 · FOUNDATIONS ============ -->
+  <section>
+    <div class="section-head">
+      <div class="n">04 — Foundations</div>
+      <div class="section-title">Color, type, spacing &amp; layout</div>
+    </div>
+
+    <div class="found-grid" style="margin-bottom:24px;">
+      <!-- palette -->
+      <div class="panel">
+        <h4>Color palette</h4>
+        <div class="psub">Warm paper surfaces · one coral accent · indigo-ink dock · platform colors reserved for accent moments.</div>
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--ink-3); letter-spacing:.08em; margin:6px 0 10px;">SURFACES &amp; INK</div>
+        <div class="swatches">
+          <div class="sw"><div class="chip" style="background:#EDE6E0;"></div><div class="info"><div class="nm">Page</div><div class="hx">#EDE6E0</div></div></div>
+          <div class="sw"><div class="chip" style="background:#FAF6F2;"></div><div class="info"><div class="nm">Paper</div><div class="hx">#FAF6F2</div></div></div>
+          <div class="sw"><div class="chip" style="background:#FFFFFF; box-shadow:inset 0 0 0 1px var(--line);"></div><div class="info"><div class="nm">Card</div><div class="hx">#FFFFFF</div></div></div>
+          <div class="sw"><div class="chip" style="background:#221C2B;"></div><div class="info"><div class="nm">Ink</div><div class="hx">#221C2B</div></div></div>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--ink-3); letter-spacing:.08em; margin:18px 0 10px;">ACCENT &amp; DOCK</div>
+        <div class="swatches">
+          <div class="sw"><div class="chip" style="background:#FF82A8;"></div><div class="info"><div class="nm">Coral</div><div class="hx">#FF82A8</div></div></div>
+          <div class="sw"><div class="chip" style="background:#E85684;"></div><div class="info"><div class="nm">Coral deep</div><div class="hx">#E85684</div></div></div>
+          <div class="sw"><div class="chip" style="background:#FFE6EE;"></div><div class="info"><div class="nm">Coral soft</div><div class="hx">#FFE6EE</div></div></div>
+          <div class="sw"><div class="chip" style="background:#211B30;"></div><div class="info"><div class="nm">Dock</div><div class="hx">#211B30</div></div></div>
+        </div>
+        <div style="font-family:var(--font-mono); font-size:11px; color:var(--ink-3); letter-spacing:.08em; margin:18px 0 10px;">PLATFORM (ACCENT ONLY)</div>
+        <div class="swatches">
+          <div class="sw"><div class="chip" style="background:#FF3B30;"></div><div class="info"><div class="nm">YouTube</div><div class="hx">#FF3B30</div></div></div>
+          <div class="sw"><div class="chip" style="background:#FF5500;"></div><div class="info"><div class="nm">SoundCloud</div><div class="hx">#FF5500</div></div></div>
+          <div class="sw"><div class="chip" style="background:#1DB954;"></div><div class="info"><div class="nm">Spotify</div><div class="hx">#1DB954</div></div></div>
+          <div class="sw"><div class="chip" style="background:#ECE3DC;"></div><div class="info"><div class="nm">Hairline</div><div class="hx">#ECE3DC</div></div></div>
+        </div>
+      </div>
+
+      <!-- type + spacing -->
+      <div style="display:flex; flex-direction:column; gap:24px;">
+        <div class="panel">
+          <h4>Typography</h4>
+          <div class="psub">Geometric display + neutral body + mono for time codes &amp; paths.</div>
+          <div class="type-spec">
+            <div><div class="lbl">DISPLAY · Bricolage Grotesque 800</div><div class="demo" style="font-family:var(--font-display); font-weight:800; font-size:30px; letter-spacing:-.02em;">Search. Preview. Keep.</div></div>
+            <div><div class="lbl">TITLE · Bricolage Grotesque 700 · 16–19px</div><div class="demo" style="font-family:var(--font-display); font-weight:700; font-size:18px;">KÉ²ra (Kerala) — Bonobo</div></div>
+            <div><div class="lbl">BODY / UI · Hanken Grotesk 400–600 · 13–15px</div><div class="demo" style="font-size:14.5px; color:var(--ink-2);">Source label, uploader, helper text and buttons.</div></div>
+            <div><div class="lbl">MONO · JetBrains Mono · time, %, format, path</div><div class="demo mono" style="font-size:14px;">0:11 / 0:30 · 64% · MP3·320 · /Music</div></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h4>Spacing &amp; radii</h4>
+          <div class="psub">4-pt rhythm · soft corners 11 → 32px · two shadow tiers.</div>
+          <div class="tokens">
+            <div class="token-row"><span class="box" style="width:11px;height:24px;border-radius:5px;"></span><span class="lbl">11 / sm</span><span class="val">chips, format tags, small controls</span></div>
+            <div class="token-row"><span class="box" style="width:15px;height:24px;border-radius:7px;"></span><span class="lbl">15 / base</span><span class="val">inputs, queue rows, covers</span></div>
+            <div class="token-row"><span class="box" style="width:20px;height:24px;border-radius:9px;"></span><span class="lbl">20 / lg</span><span class="val">result cards, panels, notes</span></div>
+            <div class="token-row"><span class="box" style="width:32px;height:24px;border-radius:12px;"></span><span class="lbl">32 / 2xl</span><span class="val">app window shell</span></div>
+            <div class="token-row" style="margin-top:6px;"><span class="box" style="width:24px;height:24px;border-radius:50%; background:var(--coral); border:0;"></span><span class="lbl">pill</span><span class="val">buttons, badges, segmented controls</span></div>
+          </div>
+          <div style="display:flex; gap:16px; margin-top:20px;">
+            <div style="flex:1; height:54px; border-radius:14px; background:#fff; box-shadow:var(--sh-card); display:grid; place-items:center; font-size:12px; color:var(--ink-2);">card shadow</div>
+            <div style="flex:1; height:54px; border-radius:14px; background:var(--coral); box-shadow:var(--glow-coral); display:grid; place-items:center; font-size:12px; color:var(--ink); font-weight:600;">coral glow</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ASCII wireframe -->
+    <div class="frame">
+      <div class="flabel"><span class="dot"></span> <b>ASCII wireframe</b> — main window structure</div>
+      <div class="ascii"><pre>
+┌──────────────────────────────────────────────────────────────────────────────┐
+│ <span class="hl">●●●</span>  ◎ <b>Jamdar</b>          [ ◳ SANSA CLIP /Music ]  [<b>MP3</b>·FLAC]  [↓ <span class="hl">2</span>]  [⚙]  │  titlebar: brand · output drive · format · queue badge · settings
+├──────────────────────────────────────────────────────────────────────────────┤
+│  ⌕  bonobo - kerala ____________________  [All·YT·SC]   [ <span class="hl">Search</span> ]            │  search hero
+│  ◉ Paste a Spotify playlist link… ___________________  [Import playlist]       │  spotify bulk import
+├───────────────────────────────────────────────────────┬────────────────────────┤
+│  Results · 24 tracks                    [Relevance ▾]  │  <b>Downloads</b>   <span class="hl">2 active</span>  ▸ │
+│  ┌─────────────────────────────────────────────────┐  │  ┌──────────────────┐  │
+│  │ [art]<span class="hl">◍</span> Kerala — Bonobo   ≈ previewing        │  │  │ [▥] Kerala  MP3  ✕│  │
+│  │  YT · Ninja Tune · 3:42  [Pause][↓ <span class="hl">Download</span>][↗]│  │  │ <span class="hl">▰▰▰▰▰▱▱</span> 64%      │  │
+│  └─────────────────────────────────────────────────┘  │  └──────────────────┘  │
+│  ┌─────────────────────────────────────────────────┐  │  ┌──────────────────┐  │
+│  │ [art] Kerala (Extended)  SC · 6:18 [▶][↓][↗]    │  │  │ [▥] Bonobo  MP3  ✕│  │
+│  └─────────────────────────────────────────────────┘  │  │ <span class="hl">▰▰▱▱▱▱▱</span> 23%      │  │
+│  ┌─────────────────────────────────────────────────┐  │  └──────────────────┘  │
+│  │ [art] Bonobo — Kerala    YT · 3:45 [▶][↓][↗]    │  │  ┌──────────────────┐  │
+│  └─────────────────────────────────────────────────┘  │  │ [▥] Live <span class="gn">✓ Saved</span>    │  │
+│            … results scroll …                          │  └──────────────────┘  │
+├───────────────────────────────────────────────────────┴────────────────────────┤
+│ <b>[art]</b> Kerala (Kerala)        ◀◀ <span class="hl">( ▶ )</span> ■   0:11 <span class="hl">▰▰▰▱▱▱▱▱▱</span> 0:30   🔊▭  [↓ Download] │  NOW PLAYING dock (dark)
+└──────────────────────────────────────────────────────────────────────────────┘
+   queue panel slides in from the right edge ▸ — collapses to the titlebar ↓ badge
+</pre></div>
+    </div>
+  </section>
+
+  <footer style="margin-top:64px; padding-top:28px; border-top:1px solid var(--line-2); display:flex; align-items:center; gap:12px; color:var(--ink-3); font-size:13px;">
+    <span class="brand"><span class="disc"></span><span class="word" style="font-size:15px; color:var(--ink);">Jamdar</span></span>
+    <span style="margin-left:auto;" class="mono">UI redesign · static hi-fi mockup · v1</span>
+  </footer>
+
+</div>
+
+<script>
+  // build the waveform bars (static, deterministic) — no interactions, purely decorative
+  function buildWave(el, opts){
+    if(!el) return;
+    var n = opts.n || 56, played = opts.played || 0.37;
+    var frag = document.createDocumentFragment();
+    for(var i=0;i<n;i++){
+      var b = document.createElement('i');
+      var h = 18 + Math.round(Math.abs(Math.sin(i*0.7)*Math.cos(i*0.31))*16) + (i%3===0?6:0);
+      b.style.height = h + 'px';
+      if(opts.light){
+        b.style.background = (i/n < played) ? 'var(--coral)' : 'var(--line-2)';
+        b.style.width = '3px'; b.style.borderRadius = '2px'; b.style.alignSelf='center';
+      } else if(i/n < played){
+        b.className = 'on';
+      }
+      frag.appendChild(b);
+    }
+    el.appendChild(frag);
+    if(!opts.light){
+      var head = document.createElement('span');
+      head.className = 'head';
+      head.style.left = (played*100) + '%';
+      el.appendChild(head);
+    }
+  }
+  document.querySelectorAll('#wave, [data-wave]').forEach(function(w){ buildWave(w, {n:58, played:0.37}); });
+  document.querySelectorAll('[data-wave-light]').forEach(function(w){
+    w.style.display='flex'; w.style.alignItems='center'; w.style.gap='2px';
+    buildWave(w, {n:52, played:0.37, light:true});
+  });
+</script>
+</body>
+</html>
