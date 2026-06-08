@@ -18,6 +18,7 @@ from ui.settings_dialog import SettingsDialog
 from core.search import SearchWorker
 from core.preview import PreviewWorker, Player
 from core.spotify import SpotifyImportWorker
+from ui.spotify_dialog import SpotifyPlaylistDialog
 import config
 
 # ── colour tokens ──────────────────────────────────────────────────────────────
@@ -677,6 +678,8 @@ class MainWindow(QMainWindow):
         self._preview_worker: PreviewWorker | None = None
         self._preview_result: dict = {}
         self._player = Player()
+        self._spotify_worker: SpotifyImportWorker | None = None
+        self._sub_workers: list[SearchWorker] = []
         self._current_output_dir = config.get("output_dir") or ""
         self._current_format = config.get("default_format") or "mp3"
 
@@ -898,37 +901,55 @@ class MainWindow(QMainWindow):
         QMessageBox.warning(self, "Preview failed", err)
 
     def _on_spotify_import(self, url: str):
-        worker = SpotifyImportWorker(url)
+        self._sub_workers = []
+        self._spotify_worker = SpotifyImportWorker(url)
+        worker = self._spotify_worker
 
-        dlg = QProgressDialog("Fetching playlist…", "Cancel", 0, 0, self)
-        dlg.setWindowTitle("Importing Spotify Playlist")
-        dlg.setWindowModality(Qt.WindowModality.WindowModal)
-        dlg.setMinimumWidth(360)
+        busy = QProgressDialog("Fetching playlist from Spotify…", "Cancel", 0, 0, self)
+        busy.setWindowTitle("Spotify Import")
+        busy.setWindowModality(Qt.WindowModality.WindowModal)
+        busy.setMinimumWidth(360)
+        self._busy_dlg = busy  # prevent GC
 
-        def on_progress(current: int, total: int):
-            dlg.setMaximum(total)
-            dlg.setValue(current)
-            dlg.setLabelText(f"Queuing track {current} of {total}…")
+        def on_ready(name: str, tracks: object):
+            busy.close()
+            if not tracks:
+                QMessageBox.information(self, "Spotify Import", "The playlist appears to be empty.")
+                return
+            dlg = SpotifyPlaylistDialog(name, tracks, self)
+            if dlg.exec() == QDialog.DialogCode.Accepted:
+                selected = dlg.selected_tracks()
+                if selected:
+                    self._start_playlist_downloads(selected)
 
-        def on_track(query: str, _display: str):
+        def on_error(msg: str):
+            busy.close()
+            QMessageBox.warning(self, "Spotify Import Error", msg)
+
+        worker.playlist_ready.connect(on_ready)
+        worker.error.connect(on_error)
+        busy.canceled.connect(worker.terminate)
+        worker.start()
+        busy.exec()
+
+    def _start_playlist_downloads(self, tracks: list[tuple[str, str]]):
+        if not self._queue_panel.isVisible():
+            self._queue_panel.setVisible(True)
+
+        fmt = self._titlebar.current_format()
+        out = self._current_output_dir
+
+        for name, artists in tracks:
+            query = f"{name} {artists}"
             sub = SearchWorker(query, "youtube")
-            fmt = self._titlebar.current_format()
-            out = self._current_output_dir
+            self._sub_workers.append(sub)
 
-            def queue_top(results: list):
+            def queue_top(results: list, _fmt=fmt, _out=out):
                 if results:
-                    self._queue_panel.enqueue(results[0], fmt, out)
+                    self._queue_panel.enqueue(results[0], _fmt, _out)
 
             sub.results_ready.connect(queue_top)
             sub.start()
-
-        worker.track_found.connect(on_track)
-        worker.progress.connect(on_progress)
-        worker.finished.connect(dlg.close)
-        worker.error.connect(lambda msg: (dlg.close(), QMessageBox.warning(self, "Spotify Import Error", msg)))
-        dlg.canceled.connect(worker.terminate)
-        worker.start()
-        dlg.exec()
 
     def paintEvent(self, _e):
         p = QPainter(self)
